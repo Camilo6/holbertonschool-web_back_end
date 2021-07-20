@@ -1,4 +1,4 @@
-#!bin/bin/env python3
+#!usr/bin/env python3
 """a asynchronous coroutine"""
 
 
