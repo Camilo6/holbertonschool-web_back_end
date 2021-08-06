@@ -5,6 +5,7 @@ from flask import request
 from typing import List, TypeVar
 
 
+
 class Auth():
     """ Class auth """
 
@@ -34,6 +35,7 @@ class Auth():
         if request is None:
             return None
         return request.headers.get("Authorization")
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         '''self descriptive'''
