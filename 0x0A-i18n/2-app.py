@@ -17,9 +17,15 @@ Babel.default_locale = 'en'
 Babel.default_timezone = 'UTC'
 
 
+@babel.localeselector
+def get_locale():
+    '''get locale funciont'''
+    return request.acceptlenguajes.best_match(Config.LANGUAGES)
+
+
 @app.route('/', methods=["GET"])
 def index():
-    return (render_template('1-index.html'))
+    return (render_template('2-index.html'))
 
 
 if (__name__ == '__main__'):
