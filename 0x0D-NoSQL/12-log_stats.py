@@ -1,16 +1,17 @@
-#!/usr/bin/python3
-"""Task 12 - provides some stats about Nginx logs stored in MongoDB"""
+#!/usr/bin/env python3
+""" 12-log_stats """
 from pymongo import MongoClient
 
 
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
-    collection = client.logs.nginx
-    print("{} logs".format(collection.estimated_document_count()))
+    connection = client.logs.nginx
+    numofcollections = len(list(connection.find()))
+    print(numofcollections, "logs")
     print("Methods:")
-    print("\tmethod GET: {}".format(collection.count_documents({"method": "GET"})))
-    print("\tmethod POST: {}".format(collection.count_documents({"method": "POST"})))
-    print("\tmethod PUT: {}".format(collection.count_documents({"method": "PUT"})))
-    print("\tmethod PATCH: {}".format(collection.count_documents({"method": "PATCH"})))
-    print("\tmethod DELETE: {}".format(collection.count_documents({"method": "DELETE"})))
-    print("{} status check".format(collection.count_documents({"path": "/status"})))
+    method = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    for i in method:
+        print("\tmethod", i + ":", len(list(connection.find({"method": i}))))
+
+    print(len(list(connection.find({"method": "GET", "path": "/status"}))),
+          "status check")
